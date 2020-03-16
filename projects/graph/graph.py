@@ -100,7 +100,26 @@ class Graph:
         starting_vertex to destination_vertex in
         breath-first order.
         """
-        pass  # TODO
+        # Same as bft, except we're keeping track of the path taken
+        # and stopping once we reach destination_vertex
+
+        to_visit = Queue()
+        to_visit.enqueue([starting_vertex]) # enqueuing a _path_, here
+
+        visited = set()
+
+        while to_visit.size() > 0:
+            current_path = to_visit.dequeue()
+            last_vertex = current_path[-1]
+
+            if last_vertex not in visited:
+                if last_vertex == destination_vertex:
+                    return current_path
+
+                visited.add(last_vertex)
+                for child_vertex in self.vertices[last_vertex]:
+                    to_visit.enqueue(current_path + [child_vertex])
+
 
     def dfs(self, starting_vertex, destination_vertex):
         """
