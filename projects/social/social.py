@@ -128,3 +128,28 @@ if __name__ == '__main__':
     print(sg.friendships)
     connections = sg.get_all_social_paths(1)
     print(connections)
+
+    # Q2
+    sg = SocialGraph()
+    sg.populate_graph(1000, 5)
+    connections_list = [sg.get_all_social_paths(i) for i in range(1, 11)]
+
+    total_connections = 0
+    total_degrees_of_separation = 0
+    for connections in connections_list:
+        total_connections += (len(connections) - 1)
+        for friend in connections:
+            if len(connections[friend]) > 1: # don't want to count users' connection with themselves!
+                total_degrees_of_separation += len(connections[friend])
+    
+    average_number_of_connections = total_connections / 10
+    average_degree_of_separation = total_degrees_of_separation / total_connections
+
+    average_percentage = (average_number_of_connections / 1000) * 100
+
+    print(average_percentage)
+    print(average_degree_of_separation)
+
+    
+
+    
